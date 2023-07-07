@@ -31,7 +31,11 @@
             <groupId>com.alibaba.smart.framework</groupId>
             <artifactId>smart-engine-extension-storage-mysql</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

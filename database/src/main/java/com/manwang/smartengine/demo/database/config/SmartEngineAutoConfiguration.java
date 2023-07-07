@@ -44,6 +44,7 @@ public class SmartEngineAutoConfiguration implements ApplicationContextAware {
         processEngineConfiguration.setIdGenerator(new SnowFlowIdGenerator());
         // 配置userTask任务分发处理器
         processEngineConfiguration.setTaskAssigneeDispatcher(new OrderTaskAssigneeDispatcher());
+        processEngineConfiguration.setVariablePersister(new CustomVariablePersister());
         // 实例化引擎
         SmartEngine smartEngine = new DefaultSmartEngine();
         smartEngine.init(processEngineConfiguration);

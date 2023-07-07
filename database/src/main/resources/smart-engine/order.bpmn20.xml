@@ -10,6 +10,7 @@
     <bpmn:process id="order" name="order" isExecutable="false" camunda:versionTag="1.0.0">
         <bpmn:serviceTask id="create_order" name="创建订单" camunda:class="createOrderJavaDelegation">
             <bpmn:incoming>Flow_0ql6lxc</bpmn:incoming>
+            <bpmn:incoming>Flow_0ql6lxc</bpmn:incoming>
             <bpmn:outgoing>Flow_0eu20g0</bpmn:outgoing>
         </bpmn:serviceTask>
         <bpmn:startEvent id="the_start">

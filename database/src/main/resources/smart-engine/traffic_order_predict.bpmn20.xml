@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_15n134v" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+    <bpmn:process id="traffic_order_predict" name="小交通订单预测流程" isExecutable="true">
+        <bpmn:startEvent id="StartEvent_1">
+            <bpmn:outgoing>Flow_17deojb</bpmn:outgoing>
+        </bpmn:startEvent>
+        <bpmn:endEvent id="Event_0exmo4y">
+            <bpmn:incoming>Flow_0obm0rr</bpmn:incoming>
+        </bpmn:endEvent>
+        <bpmn:userTask id="Activity_BiPlatform" name="Bi中台">
+            <bpmn:extensionElements>
+                <camunda:properties>
+                    <camunda:property name="title" value="BI中台" />
+                </camunda:properties>
+            </bpmn:extensionElements>
+            <bpmn:incoming>Flow_0k8jawz</bpmn:incoming>
+            <bpmn:outgoing>Flow_0jjw69d</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:userTask id="Activity_biz" name="行业业务">
+            <bpmn:incoming>Flow_0jjw69d</bpmn:incoming>
+            <bpmn:outgoing>Flow_0wjua68</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:userTask id="Activity_tripBi" name="行业Bi">
+            <bpmn:incoming>Flow_0wjua68</bpmn:incoming>
+            <bpmn:outgoing>Flow_032qq5y</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:userTask id="Activity_BiPlatform_2" name="Bi中台">
+            <bpmn:incoming>Flow_032qq5y</bpmn:incoming>
+            <bpmn:outgoing>Flow_1f7qtcr</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="Flow_17deojb" sourceRef="StartEvent_1" targetRef="Activity_0ggg49k" />
+        <bpmn:sequenceFlow id="Flow_0jjw69d" sourceRef="Activity_BiPlatform" targetRef="Activity_biz" />
+        <bpmn:sequenceFlow id="Flow_0wjua68" sourceRef="Activity_biz" targetRef="Activity_tripBi" />
+        <bpmn:sequenceFlow id="Flow_032qq5y" sourceRef="Activity_tripBi" targetRef="Activity_BiPlatform_2" />
+        <bpmn:sequenceFlow id="Flow_1f7qtcr" sourceRef="Activity_BiPlatform_2" targetRef="Activity_bizDeliver" />
+        <bpmn:serviceTask id="Activity_0ggg49k" name="发起流程">
+            <bpmn:incoming>Flow_17deojb</bpmn:incoming>
+            <bpmn:outgoing>Flow_0k8jawz</bpmn:outgoing>
+        </bpmn:serviceTask>
+        <bpmn:sequenceFlow id="Flow_0k8jawz" sourceRef="Activity_0ggg49k" targetRef="Activity_BiPlatform" />
+        <bpmn:userTask id="Activity_bizDeliver" name="行业交付">
+            <bpmn:incoming>Flow_1f7qtcr</bpmn:incoming>
+            <bpmn:outgoing>Flow_0obm0rr</bpmn:outgoing>
+        </bpmn:userTask>
+        <bpmn:sequenceFlow id="Flow_0obm0rr" sourceRef="Activity_bizDeliver" targetRef="Event_0exmo4y" />
+    </bpmn:process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+        <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="traffic_order_predict">
+            <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+                <dc:Bounds x="112" y="102" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Event_0exmo4y_di" bpmnElement="Event_0exmo4y">
+                <dc:Bounds x="802" y="512" width="36" height="36" />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_1au9rwz_di" bpmnElement="Activity_BiPlatform">
+                <dc:Bounds x="400" y="80" width="100" height="80" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_1cn7gfv" bpmnElement="Activity_biz">
+                <dc:Bounds x="590" y="80" width="100" height="80" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_1xu8l9t" bpmnElement="Activity_tripBi">
+                <dc:Bounds x="770" y="80" width="100" height="80" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_0ltvafs" bpmnElement="Activity_BiPlatform_2">
+                <dc:Bounds x="770" y="220" width="100" height="80" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="Activity_0ggg49k_di" bpmnElement="Activity_0ggg49k">
+                <dc:Bounds x="220" y="80" width="100" height="80" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape id="BPMNShape_1kz644a" bpmnElement="Activity_bizDeliver">
+                <dc:Bounds x="770" y="360" width="100" height="80" />
+                <bpmndi:BPMNLabel />
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge id="Flow_17deojb_di" bpmnElement="Flow_17deojb">
+                <di:waypoint x="148" y="120" />
+                <di:waypoint x="220" y="120" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0jjw69d_di" bpmnElement="Flow_0jjw69d">
+                <di:waypoint x="500" y="120" />
+                <di:waypoint x="590" y="120" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0wjua68_di" bpmnElement="Flow_0wjua68">
+                <di:waypoint x="690" y="120" />
+                <di:waypoint x="770" y="120" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_032qq5y_di" bpmnElement="Flow_032qq5y">
+                <di:waypoint x="820" y="160" />
+                <di:waypoint x="820" y="220" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_1f7qtcr_di" bpmnElement="Flow_1f7qtcr">
+                <di:waypoint x="820" y="300" />
+                <di:waypoint x="820" y="360" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0k8jawz_di" bpmnElement="Flow_0k8jawz">
+                <di:waypoint x="320" y="120" />
+                <di:waypoint x="400" y="120" />
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge id="Flow_0obm0rr_di" bpmnElement="Flow_0obm0rr">
+                <di:waypoint x="820" y="440" />
+                <di:waypoint x="820" y="512" />
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</bpmn:definitions>

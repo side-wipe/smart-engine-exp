@@ -1,14 +1,9 @@
 package com.manwang.smartengine.demo.database.config;
 
 import com.alibaba.smart.framework.engine.configuration.IdGenerator;
+import com.alibaba.smart.framework.engine.model.instance.Instance;
 
 public class SnowFlowIdGenerator implements IdGenerator {
-    @Override
-    public String getId() {
-        return String.valueOf(nextId());
-    }
-
-    //因为二进制里第一个 bit 为如果是 1，那么都是负数，但是我们生成的 id 都是正数，所以第一个 bit 统一都是 0。
 
     //机器ID  2进制5位  32位减掉1位 31个
     private long workerId;
@@ -78,8 +73,9 @@ public class SnowFlowIdGenerator implements IdGenerator {
         this.sequence = sequence;
     }
 
-    // 这个是核心方法，通过调用nextId()方法，
-    // 让当前这台机器上的snowflake算法程序生成一个全局唯一的id
+    /**
+     * 让当前这台机器上的snowflake算法程序生成一个全局唯一的id
+     */
     public synchronized long nextId() {
         // 这儿就是获取当前时间戳，单位是毫秒
         long timestamp = timeGen();
@@ -133,8 +129,13 @@ public class SnowFlowIdGenerator implements IdGenerator {
         return timestamp;
     }
 
-    //获取当前时间戳
     private long timeGen() {
         return System.currentTimeMillis();
+    }
+
+    @Override
+    public void generate(Instance instance) {
+        String id = String.valueOf(nextId());
+        instance.setInstanceId(id);
     }
 }
